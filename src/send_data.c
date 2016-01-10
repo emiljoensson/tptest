@@ -59,7 +59,7 @@ void send_data(int length, int port, int protocol) {
 
     int consocket;
     if (protocol == 6) {
-        printf("Listening for connection to send TCP...\n", NULL);
+        printf("Listening for connection to send TCP...\n");
         listen(socketDescr, 1);
         consocket = accept(socketDescr, (struct sockaddr *)&client, &socksize);
         while(consocket) {
@@ -71,7 +71,7 @@ void send_data(int length, int port, int protocol) {
             consocket = accept(socketDescr, (struct sockaddr *)&client, &socksize);
         }
     } else if (protocol == 17) {
-        printf("Listening for connection to send UDP...\n", NULL);
+        printf("Listening for connection to send UDP...\n");
         recvfrom(socketDescr, buf, sizeof(buf), 0, (struct sockaddr *) &client, &len);
         printf("Incoming connection from %d - sending data\n", inet_ntoa(client.sin_addr));
         long int count;

@@ -33,9 +33,9 @@ int main (int argc, char *argv[]) {
 
     /* Checking if user provided us with 5 arguments */
     if (argc < 6) {
-        printf("usage:\n", NULL);
-        printf("./tptest destination(IP) port(1-65535) protocol(tcp=6/udp=17) length(packet length) direction(1=upstream,2=downstream)\n", NULL);
-        printf("example: ./tptest 192.168.1.2 1025 6 512 2\n", NULL);
+        printf("usage:\n");
+        printf("./tptest destination(IP) port(1-65535) protocol(tcp=6/udp=17) length(packet length) direction(1=upstream,2=downstream)\n");
+        printf("example: ./tptest 192.168.1.2 1025 6 512 2\n");
         exit(0);
     }
 
@@ -48,17 +48,17 @@ int main (int argc, char *argv[]) {
     const int DIRECTION = atoi(argv[5]);
 
     if (PORT < 1 || PORT > 65535) {
-        printf("Invalid port. Valid range is 1-65535.\n", NULL);
+        printf("Invalid port. Valid range is 1-65535.\n");
         exit(0);
     }
 
     if (LENGTH < 2 || LENGTH > 9198) {
-        printf("Invalid packet length. Valid range is 2-9198.\n", NULL);
+        printf("Invalid packet length. Valid range is 2-9198.\n");
         exit(0);
     }
 
     if (DIRECTION < 1 || DIRECTION > 2) {
-        printf("Invalid direction. Use 1 for upstream or 2 for downstream.\n", NULL);
+        printf("Invalid direction. Use 1 for upstream or 2 for downstream.\n");
         exit(0);
     }
 
@@ -87,7 +87,7 @@ int main (int argc, char *argv[]) {
         if (DIRECTION == 2) { // If downstream
             socketDescr = socket(AF_INET,SOCK_DGRAM,0);    // Creating the socket, SOCK_DGRAM = UDP/
             sendto(socketDescr, buf, sizeof(buf), 0, (struct sockaddr *) &server, len);
-            printf("Receiving data...\n", NULL);
+            printf("Receiving data...\n");
             returnTime = gettimeofday(&start_t, &tzp);  // Check time when starting
             while (tmp != 1) {
                 tmp = recvfrom(socketDescr, buf, sizeof(buf), 0, (struct sockaddr *) &server, &len);
@@ -105,7 +105,7 @@ int main (int argc, char *argv[]) {
         if (DIRECTION == 2) { // If downstream
             socketDescr = socket(AF_INET,SOCK_STREAM,0);    // Creating the socket, SOCK_STREAM = TCP/
             connect(socketDescr, (struct sockaddr *)&server, sizeof(struct sockaddr)); // Establishing TCP connection
-            printf("TCP connection established. Receiving data...\n", NULL);
+            printf("TCP connection established. Receiving data...\n");
             returnTime = gettimeofday(&start_t, &tzp);  // Check time when starting
             while (received < DATA_TO_TRANSFER) {
                 tmp = recv(socketDescr, buf, LENGTH, 0);
@@ -121,7 +121,7 @@ int main (int argc, char *argv[]) {
         }
 
     } else {
-        printf("Invalid protocol specified!\n", NULL);
+        printf("Invalid protocol specified!\n");
         exit(0);
     }
 
