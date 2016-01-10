@@ -17,8 +17,6 @@
 #define MEGA (KILO*KILO)
 #define MEGABYTES 100; // Configurable - how much data that should be sent (in MB) when testing throuhgput
 
-const long int DATA_TO_TRANSFER = MEGA*MEGABYTES; // Do not change
-
 /* Global variables needed to check time difference */
 int returnTime;
 struct timeval start_t, end_t;
@@ -107,7 +105,7 @@ int main (int argc, char *argv[]) {
             connect(socketDescr, (struct sockaddr *)&server, sizeof(struct sockaddr)); // Establishing TCP connection
             printf("TCP connection established. Receiving data...\n");
             returnTime = gettimeofday(&start_t, &tzp);  // Check time when starting
-            while (received < DATA_TO_TRANSFER) {
+            while (received < MEGA*MEGABYTES) {
                 tmp = recv(socketDescr, buf, LENGTH, 0);
                 received = received + tmp;
             }

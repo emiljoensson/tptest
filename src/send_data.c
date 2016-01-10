@@ -17,9 +17,6 @@
 const long int DATA_TO_TRANSFER = MEGA*MEGABYTES; // Do not change
 
 void send_data(int length, int port, int protocol) {
-    long int size;
-    size = MEGA;
-
     int socketDescr;  // socket descriptor
     char buf[length];  // contains the memory address to store the data
     memset(buf, '$', length); // filling the space
